@@ -1,0 +1,22 @@
+[Unit]
+Description=Catty Reminders Webhook Server
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=alex
+Group=alex
+WorkingDirectory=/home/alex
+ExecStart=/usr/bin/python3 webhook-server.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Переменные окружения
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
