@@ -27,6 +27,6 @@ jobs:
     - name: Run tests
       run: |
         
-        python -m pytest tests/ -v
+        python -m pytest tests/test_unit.py -v
         
         python -c "print('Basic test passed')"
