@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
         
     - name: Deploy to VM
-      uses: appleboy/ssh-action@v1
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: "course.prafdin.ru"
         username: "alex"
@@ -35,4 +35,4 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           sudo systemctl restart catty-reminders.service
-          echo "Deployment completed successfully!"
+          echo "✅ Deployment completed successfully!"
