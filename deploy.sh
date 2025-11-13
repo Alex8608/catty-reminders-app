@@ -16,7 +16,7 @@ echo "📦 Pulling latest code..." | tee -a $LOG_FILE
 git pull origin master
 
 echo "📦 Installing dependencies..." | tee -a $LOG_FILE
-pip3 install --break-system-packages -r requirements.txt
+pip3 install -r requirements.txt
 
 echo "🔧 Restarting service..." | tee -a $LOG_FILE
 sudo systemctl restart catty-reminders
