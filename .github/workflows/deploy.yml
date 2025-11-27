@@ -1,14 +1,11 @@
 name: Deploy to VM
 
 on:
-  workflow_run:
-    workflows: ["CI Tests and Docker Build"]
-    types:
-      - completed
+  push:
+    branches: [ github-actions ]
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     
     steps:
@@ -36,8 +33,5 @@ jobs:
             --restart unless-stopped \
             -p 8181:8181 \
             ghcr.io/alex8608/catty-reminders-app:latest
-          
-          # Очищаем старые образы
-          docker image prune -f
           
           echo "✅ Deployment completed! App available at: http://app.course.prafdin.ru"
