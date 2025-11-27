@@ -50,8 +50,9 @@ jobs:
         context: .
         push: true
         tags: |
-          ghcr.io/${{ lower(github.repository_owner) }}/catty-reminders-app:latest
-          ghcr.io/${{ lower(github.repository_owner) }}/catty-reminders-app:${{ github.sha }}
+          ghcr.io/alex8608/catty-reminders-app:latest
+          ghcr.io/alex8608/catty-reminders-app:${{ github.sha }}
+          
     - name: Lint Dockerfile
       uses: hadolint/hadolint-action@v3.1.0
       with:
