@@ -3,9 +3,9 @@ FROM python:3.11-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    default-libmysqlclient-dev \
-    pkg-config \
-    gcc \
+    default-libmysqlclient-dev=1.0.* \
+    pkg-config=0.29.* \
+    gcc=4:10.* \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
