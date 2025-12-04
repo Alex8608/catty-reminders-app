@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: cattydb
+      MYSQL_USER: cattyuser
+      MYSQL_PASSWORD: cattypass
+    volumes:
+      - mariadb_data:/var/lib/mysql  # Volume для данных
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8181:8181"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql://cattyuser:cattypass@db/cattydb
+
+volumes:
+  mariadb_data:

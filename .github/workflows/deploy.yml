@@ -1,0 +1,33 @@
+name: Deploy to VM
+
+on:
+  push:
+    branches: [ github-actions ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy with Docker Compose
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: "course.prafdin.ru"
+        username: "alex"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 2459
+        script: |
+          # Логинимся в GitHub Container Registry
+          echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u alex8608 --password-stdin
+          
+          # Переходим в папку приложения
+          cd ~/catty-reminders-app
+          
+          docker compose down
+          
+          # Pull последнего образа и запускаем через Docker Compose
+          docker compose pull
+          docker compose up -d
+          
+          echo "✅ Deployment completed with Docker Compose!"
+          echo "App available at: http://app.vladimircev.course.prafdin.ru"
