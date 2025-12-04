@@ -23,6 +23,8 @@ jobs:
           # Переходим в папку приложения
           cd ~/catty-reminders-app
           
+          docker compose down
+          
           # Pull последнего образа и запускаем через Docker Compose
           docker compose pull
           docker compose up -d

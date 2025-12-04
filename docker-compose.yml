@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   catty-app:
     image: ghcr.io/alex8608/catty-reminders-app:latest
