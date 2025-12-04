@@ -2,7 +2,7 @@ name: Deploy to VM
 
 on:
   push:
-    branches: [ github-actions ]
+    branches: [ multicontainers, github-actions ]
 
 jobs:
   deploy:
