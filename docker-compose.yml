@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  catty-app:
+    image: ghcr.io/alex8608/catty-reminders-app:latest
+    container_name: catty-reminders-app
+    restart: unless-stopped
+    ports:
+      - "8181:8181"

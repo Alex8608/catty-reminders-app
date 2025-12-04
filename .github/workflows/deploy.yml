@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Deploy Docker container to VM
+    - name: Deploy with Docker Compose
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: "course.prafdin.ru"
@@ -20,18 +20,12 @@ jobs:
           # Логинимся в GitHub Container Registry
           echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u alex8608 --password-stdin
           
-          # Останавливаем и удаляем старый контейнер
-          docker stop catty-app || true
-          docker rm catty-app || true
+          # Переходим в папку приложения
+          cd ~/catty-reminders-app
           
-          # Pull последнего образа
-          docker pull ghcr.io/alex8608/catty-reminders-app:latest
+          # Pull последнего образа и запускаем через Docker Compose
+          docker compose pull
+          docker compose up -d
           
-          # Запускаем новый контейнер
-          docker run -d \
-            --name catty-app \
-            --restart unless-stopped \
-            -p 8181:8181 \
-            ghcr.io/alex8608/catty-reminders-app:latest
-          
-          echo "✅ Deployment completed! App available at: http://app.course.prafdin.ru"
+          echo "✅ Deployment completed with Docker Compose!"
+          echo "App available at: http://app.vladimircev.course.prafdin.ru"
